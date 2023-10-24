@@ -10,8 +10,8 @@
         $str1 = ''; // расшифрованный текст
     
         for ($i = 0, $j = 0; $i < mb_strlen($input); $i++, $j++) {
-            $input_symb = $dict[mb_substr($input, $i, 1, 'UTF-8')];
-            $code_symb = $dict[mb_substr($code, $j, 1, 'UTF-8')];
+            $input_symb = $dict[mb_substr($input, $i, 1, 'UTF-8')]; // считываем один символ начиная с i и получаем его код из словаря
+            $code_symb = $dict[mb_substr($code, $j, 1, 'UTF-8')]; // считываем один символ начиная с j и получаем его код из словаря
             $decode_symb = $input_symb ^ $code_symb; // XOR
     
             //$str1 .= array_search($decode_symb, $dict); // ВАРИАНТ №1 через функцию поиска ключа по значению
@@ -19,10 +19,10 @@
             // ВАРИАНТ №2 через UTF-8 character table
             // когда символ имеет код больше 9 (код соответствует словарю $dict), то дельта будет 1040, так как в $dict нет "Й", а в utf8-character-table есть
             // код 124 в таблице utf8 == "|";   "|"(0 согласно $dict) + 124 = 124
-            $delta = $decode_symb == 0 ? 124 : ($decode_symb > 9 ? 1040 : 1039);
+            $delta = ($decode_symb == 0) ? 124 : ($decode_symb > 9 ? 1040 : 1039);
             $str1 .= mb_chr($decode_symb + $delta, 'UTF-8'); // конкатенируем символ в аккумулирующую строку
     
-            if ($j == mb_strlen($code) - 1) $j = -1; // дошёл до последнего символа строки, перед инкрементацией ставим $j = -1 => в начале цикла $j будет равна 0
+            if ($j == mb_strlen($code) - 1) $j = -1; // дошёл до последнего символа строки $code, перед инкрементацией ставим $j = -1 => в начале цикла $j будет равна 0
         }
     
         return $str1;
