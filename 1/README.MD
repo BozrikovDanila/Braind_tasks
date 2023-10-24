@@ -49,8 +49,8 @@ Index.php точка входа в приложение. Файл bootstrap.php 
     }
 ```
 Не трудно догадаться, что метод generate предназначен для формирования вида. В него передаются следующие параметры:
-1. $content_file — виды отображающие контент страниц;
-2. $template_file — общий для всех страниц шаблон, в который вставляется $content_file;
+1. $content_view— виды отображающие контент страниц;
+2. $template_view — общий для всех страниц шаблон, в который вставляется $content_file;
 3. $data — массив, содержащий элементы контента страницы, полученный из модели.
 
 Функцией include динамически подключается общий шаблон (вид), внутри которого будет встраиваться вид
@@ -80,5 +80,15 @@ Index.php точка входа в приложение. Файл bootstrap.php 
 Затем производится действие по-умолчанию, в нём возможно получение данных из модели, а затем генерация страницы 
 View->generate($content_view, $template_view, $data).
 
+Пример работы:
+example.com/articles/article/1
 
+создаст объект класса controller_articles и model_articles (если такой модель есть)
+вызовет у controller_main->action_article($params) - в $params находится 1
 
+action_article: $data = $this->model->db->get_article() // запроса может и не быть, если модели нет
+view->generate('article_view.php', 'template_view.php')
+
+generate: разместит в template_view.php вместо $content_view -> article_view.php
+
+main_view.php: использует $data (если есть) для отображения информации из модели
