@@ -83,10 +83,10 @@ View->generate($content_view, $template_view, $data).
 Пример работы:
 example.com/articles/article/1
 
-создаст объект класса controller_articles и model_articles (если такой модель есть)
+создаст объект класса controller_articles и model_articles (если такой модель есть)<br>
 вызовет у controller_main->action_article($params) - в $params находится 1
 
-action_article: $data = $this->model->db->get_article() // запроса может и не быть, если модели нет
+action_article: $data = $this->model->db->get_article() // запроса может и не быть, если модели нет<br>
 view->generate('article_view.php', 'template_view.php')
 
 generate: разместит в template_view.php вместо $content_view -> article_view.php
