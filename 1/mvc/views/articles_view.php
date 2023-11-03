@@ -2,18 +2,8 @@
     <div class="container">
         <div class="row">
             <?php
-                // $data - аргумент в функции View->generate()
-
-                foreach ($data as $row): // выводим каждую статью
-                    $num_of_symb = 250; // кол-во считываемых символов
-                    $row['text'] = mb_strimwidth($row['text'], 0, $num_of_symb, '', 'UTF-8'); // обрезаем 250 символов
-                    $text_explode = explode(" ", mberegi_replace('&nbsp;', ' ', $row["text"])); // получаем массив слов разделенных по пробелам
-                    $exp_text_size = sizeof($text_explode); // получаем кол-во элмементов массива, чтобы обратиться к поледним трем
-                    $last_words_len = mb_strlen($text_explode[$exp_text_size-3]) + mb_strlen($text_explode[$exp_text_size-2]) + mb_strlen($text_explode[$exp_text_size-1]) +  2 * mb_strlen(' '); // длина последних трёх слов и 2 пробела
-                    $row['text'] = mb_strimwidth($row['text'], 0, mb_strlen($row['text'])-$last_words_len, '', 'UTF-8'); // обрезаем из прошлой строки последние три слова и ставим пробел
-                    $row['text'] .= "<a href=\"/articles/article/". $row['id'] . "\">" . $text_explode[$exp_text_size-3] .
-                        " " . $text_explode[$exp_text_size-2] . " " . $text_explode[$exp_text_size-1] . "... </a>";; // вставляем последние три слова обернутые в ссылку и ... в конце
-
+            // $data - аргумент в функции View->generate()
+            foreach ($data as $row): // выводим каждую статью
             ?>
 
             <!-- Карточка статьи -->
@@ -38,10 +28,9 @@
                 </div>
 
             <?php
-                endforeach;
+            endforeach;
             ?>
-            <div class="col col-lg-4">
+            <div class="col col-lg-4"></div>
         </div>
-    </div>
     </div>
 </section>
